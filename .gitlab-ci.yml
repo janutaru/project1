@@ -1,0 +1,32 @@
+stages:
+  - init
+  - plan
+  - apply
+
+# Terraform Initialize Job
+terraform_init:
+  image: hashicorp/terraform:latest
+  stage: init
+  script:
+    - terraform init
+  only:
+    - main  # or your desired branch
+
+# Terraform Plan Job
+terraform_plan:
+  image: hashicorp/terraform:latest
+  stage: plan
+  script:
+    - terraform plan -out=tfplan
+  only:
+    - main
+
+# Terraform Apply Job (to create/update the infrastructure)
+terraform_apply:
+  image: hashicorp/terraform:latest
+  stage: apply
+  script:
+    - terraform apply -auto-approve tfplan
+  only:
+    - main  # or your desired branch
+  when: manual  # Optional: This allows the `apply` step to be triggered manually
