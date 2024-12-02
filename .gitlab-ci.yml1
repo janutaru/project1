@@ -1,1 +1,17 @@
+stages:
+  - destroy
 
+variables:
+  AWS_ACCESS_KEY_ID: $AWS_ACCESS_KEY_ID
+  AWS_SECRET_ACCESS_KEY: $AWS_SECRET_ACCESS_KEY
+  AWS_REGION: "us-west-2"  
+
+# Terraform destroy Job
+terraform_destroy:
+  stage: destroy
+  script:
+    - terraform destroy -auto-approve
+  only:
+    - main  # or your desired branch
+  when: manual  # Optional: This allows the `apply` step to be triggered manually
+   
