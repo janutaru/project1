@@ -1,3 +1,4 @@
+image 'hashicorp/terraform:latest plan'
 stages:
   - destroy
 
